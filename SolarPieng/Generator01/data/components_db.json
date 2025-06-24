@@ -1,0 +1,106 @@
+{
+    "modules": [
+        {
+            "id": "mod_001",
+            "name": "Painel Solar 550Wp Monocristalino",
+            "power_wp": 550,
+            "price_per_unit": 280.00,
+            "efficiency": 0.21,
+            "warranty_years": 12,
+            "brand": "Genérico"
+        },
+        {
+            "id": "mod_002", 
+            "name": "Painel Solar 600Wp Bifacial",
+            "power_wp": 600,
+            "price_per_unit": 320.00,
+            "efficiency": 0.22,
+            "warranty_years": 12,
+            "brand": "Genérico"
+        },
+        {
+            "id": "mod_003",
+            "name": "Painel Solar 610Wp DMEGC Bifacial",
+            "power_wp": 610,
+            "price_per_unit": 340.00,
+            "efficiency": 0.225,
+            "warranty_years": 12,
+            "brand": "DMEGC"
+        }
+    ],
+    "inverters": [
+        {
+            "id": "inv_001",
+            "name": "Inversor String 15kW Trifásico",
+            "power_kw": 15,
+            "price": 3500.00,
+            "type": "string",
+            "efficiency": 0.98,
+            "brand": "Genérico"
+        },
+        {
+            "id": "inv_002",
+            "name": "Microinversor 2kW",
+            "power_kw": 2,
+            "price": 800.00,
+            "type": "micro",
+            "efficiency": 0.96,
+            "brand": "Genérico"
+        },
+        {
+            "id": "inv_003",
+            "name": "Inversor Solis 40kW Trifásico",
+            "power_kw": 40,
+            "price": 8500.00,
+            "type": "string",
+            "efficiency": 0.98,
+            "brand": "Solis"
+        },
+        {
+            "id": "inv_004",
+            "name": "Inversor SAJ 36kW Trifásico",
+            "power_kw": 36,
+            "price": 7800.00,
+            "type": "string",
+            "efficiency": 0.975,
+            "brand": "SAJ"
+        }
+    ],
+    "cables": {
+        "solar_cable_6mm": {
+            "price_per_meter": 8.50,
+            "description": "Cabo Solar 6mm² DC"
+        },
+        "ac_cable_10mm": {
+            "price_per_meter": 12.00,
+            "description": "Cabo AC 10mm²"
+        },
+        "ac_cable_16mm": {
+            "price_per_meter": 18.00,
+            "description": "Cabo AC 16mm²"
+        }
+    },
+    "structure": {
+        "cost_per_module": 85.00,
+        "description": "Estrutura de fixação completa por módulo"
+    },
+    "installation": {
+        "cost_per_kwp": 200.00,
+        "description": "Mão de obra de instalação"
+    },
+    "additional_costs": {
+        "electrical_protection": {
+            "cost_per_kwp": 50.00,
+            "description": "Proteções elétricas (DPS, disjuntores, etc.)"
+        },
+        "project_approval": {
+            "fixed_cost": 800.00,
+            "description": "Projeto e aprovação na concessionária"
+        },
+        "transportation": {
+            "cost_per_kwp": 30.00,
+            "description": "Transporte e logística"
+        }
+    }
+}
+

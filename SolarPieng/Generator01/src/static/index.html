@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIENG Solar Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3366CC 0%, #FF6B35 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3366CC 0%, #FF6B35 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-circle {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3366CC;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .logo-text h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+        
+        .logo-text p {
+            font-size: 1em;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #3366CC;
+            border-bottom: 3px solid #3366CC;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3366CC 0%, #FF6B35 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .kit-card {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .kit-card h4 {
+            color: #3366CC;
+            margin-bottom: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #3366CC;
+            background: #f8f9fa;
+        }
+        
+        .upload-area.dragover {
+            border-color: #FF6B35;
+            background: #fff5f0;
+        }
+        
+        .optional-fields {
+            display: none;
+            margin-top: 10px;
+        }
+        
+        .optional-fields.show {
+            display: block;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3366CC;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .proposal-preview {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-circle">π</div>
+                <div class="logo-text">
+                    <h1>PIENG</h1>
+                    <p>Gerador de Propostas Solar</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('client-data')">
+                📋 Dados do Cliente
+            </button>
+            <button class="tab" onclick="showTab('suppliers')">
+                📦 Kits de Fornecedores
+            </button>
+            <button class="tab" onclick="showTab('quick-quote')">
+                ⚡ Orçamento Rápido
+            </button>
+            <button class="tab" onclick="showTab('proposal')">
+                📄 Proposta
+            </button>
+        </div>
+        
+        <!-- Aba 1: Dados do Cliente -->
+        <div id="client-data" class="tab-content active">
+            <h3>1. Dados do Cliente e Parâmetros</h3>
+            
+            <div class="form-group">
+                <label for="client-name">Nome do Cliente (Obrigatório)</label>
+                <input type="text" id="client-name" placeholder="Digite o nome do cliente" required>
+            </div>
+            
+            <button type="button" class="btn btn-secondary" onclick="toggleOptionalFields()">
+                + Dados Opcionais
+            </button>
+            
+            <div id="optional-fields" class="optional-fields">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="client-email">E-mail</label>
+                        <input type="email" id="client-email" placeholder="email@exemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="client-phone">Telefone</label>
+                        <input type="tel" id="client-phone" placeholder="(62) 99999-9999">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="client-address">Endereço</label>
+                    <input type="text" id="client-address" placeholder="Endereço completo">
+                </div>
+            </div>
+            
+            <h4 style="margin-top: 30px;">2. Parâmetros da Simulação</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="margin-target">Margem Alvo (%)</label>
+                    <input type="number" id="margin-target" value="40" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="hsp">HSP Cidade</label>
+                    <input type="number" id="hsp" value="5.25" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="tariff">Tarifa (R$/kWh)</label>
+                    <input type="number" id="tariff" value="1.10" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="simultaneity">Simultaneidade (%)</label>
+                    <input type="number" id="simultaneity" value="30" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="inflation">Inflação Energética (%)</label>
+                    <input type="number" id="inflation" value="4.8" step="0.1">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Aba 2: Kits de Fornecedores -->
+        <div id="suppliers" class="tab-content">
+            <h3>3. Kits para Comparação</h3>
+            
+            <div id="kits-container">
+                <!-- Kits serão adicionados dinamicamente aqui -->
+            </div>
+            
+            <button type="button" class="btn btn-secondary" onclick="addKit()">
+                ➕ Adicionar Kit
+            </button>
+            
+            <div style="margin-top: 20px;">
+                <button type="button" class="btn btn-primary" onclick="calculateProposal()">
+                    🚀 Calcular Proposta
+                </button>
+            </div>
+        </div>
+        
+        <!-- Aba 3: Orçamento Rápido -->
+        <div id="quick-quote" class="tab-content">
+            <h3>Orçamento Rápido - Residencial</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="monthly-consumption">Consumo Mensal (kWh)</label>
+                    <input type="number" id="monthly-consumption" placeholder="Ex: 500">
+                </div>
+                <div class="form-group">
+                    <label for="bill-value">ou Valor da Conta (R$)</label>
+                    <input type="number" id="bill-value" placeholder="Ex: 550.00">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="location-hsp">Localização (HSP)</label>
+                    <select id="location-hsp">
+                        <option value="5.25">Goiânia/GO (5.25)</option>
+                        <option value="5.5">Brasília/DF (5.5)</option>
+                        <option value="5.0">São Paulo/SP (5.0)</option>
+                        <option value="5.8">Petrolina/PE (5.8)</option>
+                        <option value="4.8">Porto Alegre/RS (4.8)</option>
+                        <option value="5.3">Belo Horizonte/MG (5.3)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quick-simultaneity">Simultaneidade (%)</label>
+                    <input type="number" id="quick-simultaneity" value="30" step="1">
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-primary" onclick="generateQuickQuote()">
+                ⚡ Gerar Orçamento Rápido
+            </button>
+        </div>
+        
+        <!-- Aba 4: Proposta -->
+        <div id="proposal" class="tab-content">
+            <h3>4. Visualização da Proposta</h3>
+            
+            <div id="proposal-controls" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="proposal-format">Formato da Proposta</label>
+                        <select id="proposal-format">
+                            <option value="standard">Padrão (Enxuto)</option>
+                            <option value="analytical">Analítico (Detalhado)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn btn-primary" onclick="generateHTML()">
+                    📄 Gerar HTML
+                </button>
+            </div>
+            
+            <div id="proposal-preview" class="proposal-preview" style="display: none;">
+                <!-- Preview da proposta será exibido aqui -->
+            </div>
+        </div>
+        
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Processando...</p>
+        </div>
+        
+        <!-- Alerts -->
+        <div id="alerts"></div>
+    </div>
+    
+    <script>
+        // Estado global da aplicação
+        let appState = {
+            clientData: {},
+            kits: [],
+            proposals: [],
+            quickQuoteResult: null
+        };
+        
+        // Funções de navegação entre abas
+        function showTab(tabName) {
+            // Esconder todas as abas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar aba selecionada
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Função para mostrar/esconder campos opcionais
+        function toggleOptionalFields() {
+            const fields = document.getElementById('optional-fields');
+            fields.classList.toggle('show');
+        }
+        
+        // Função para adicionar kit
+        function addKit() {
+            const container = document.getElementById('kits-container');
+            const kitNumber = container.children.length + 1;
+            
+            const kitHTML = `
+                <div class="kit-card" data-kit="${kitNumber}">
+                    <h4>Kit #${kitNumber}</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Fornecedor</label>
+                            <input type="text" class="kit-supplier" placeholder="Ex: Fortlev Solar" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Custo Total (R$)</label>
+                            <input type="number" class="kit-cost" placeholder="Ex: 50000.00" step="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Potência (kWp)</label>
+                            <input type="number" class="kit-power" placeholder="Ex: 50.0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantidade de Módulos</label>
+                            <input type="number" class="kit-modules" placeholder="Ex: 84" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrição dos Módulos</label>
+                            <input type="text" class="kit-modules-desc" placeholder="Ex: 84x Painel Solar 600Wp">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição do Inversor</label>
+                            <input type="text" class="kit-inverter-desc" placeholder="Ex: Inversor String 50kW">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tipo de Inversor</label>
+                            <select class="kit-inverter-type">
+                                <option value="string">String</option>
+                                <option value="micro">Micro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" class="kit-freight-included" checked> Frete já incluso?
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Valor do Frete (R$)</label>
+                        <input type="number" class="kit-freight-value" placeholder="0.00" step="0.01" disabled>
+                    </div>
+                    
+                    <div class="upload-area" onclick="triggerFileUpload(${kitNumber})">
+                        <p>📄 Clique para fazer upload de PDF/Imagem (OCR)</p>
+                        <input type="file" id="file-upload-${kitNumber}" accept=".pdf,.jpg,.jpeg,.png,.gif,.bmp,.tiff" style="display: none;" onchange="handleFileUpload(${kitNumber}, this)">
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary" onclick="removeKit(${kitNumber})" style="margin-top: 10px;">
+                        🗑️ Remover Kit
+                    </button>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', kitHTML);
+            
+            // Adicionar event listener para checkbox de frete
+            const freightCheckbox = container.querySelector(`[data-kit="${kitNumber}"] .kit-freight-included`);
+            const freightInput = container.querySelector(`[data-kit="${kitNumber}"] .kit-freight-value`);
+            
+            freightCheckbox.addEventListener('change', function() {
+                freightInput.disabled = this.checked;
+                if (this.checked) {
+                    freightInput.value = '0.00';
+                }
+            });
+        }
+        
+        // Função para remover kit
+        function removeKit(kitNumber) {
+            const kit = document.querySelector(`[data-kit="${kitNumber}"]`);
+            if (kit) {
+                kit.remove();
+            }
+        }
+        
+        // Função para trigger upload de arquivo
+        function triggerFileUpload(kitNumber) {
+            document.getElementById(`file-upload-${kitNumber}`).click();
+        }
+        
+        // Função para handle upload de arquivo
+        async function handleFileUpload(kitNumber, input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            showLoading();
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/api/upload-ocr', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success && result.systems_data.length > 0) {
+                    // Preencher dados do primeiro sistema extraído
+                    const systemData = result.systems_data[0];
+                    const kitCard = document.querySelector(`[data-kit="${kitNumber}"]`);
+                    
+                    if (systemData.name) kitCard.querySelector('.kit-supplier').value = systemData.name;
+                    if (systemData.vcusto_raw) kitCard.querySelector('.kit-cost').value = systemData.vcusto_raw;
+                    if (systemData.power) kitCard.querySelector('.kit-power').value = systemData.power;
+                    if (systemData.modules_count) kitCard.querySelector('.kit-modules').value = systemData.modules_count;
+                    if (systemData.modules_desc) kitCard.querySelector('.kit-modules-desc').value = systemData.modules_desc;
+                    if (systemData.inverter_desc) kitCard.querySelector('.kit-inverter-desc').value = systemData.inverter_desc;
+                    if (systemData.inverter_type) kitCard.querySelector('.kit-inverter-type').value = systemData.inverter_type;
+                    
+                    showAlert('Dados extraídos com sucesso!', 'success');
+                } else {
+                    showAlert('Não foi possível extrair dados do arquivo. Preencha manualmente.', 'error');
+                }
+            } catch (error) {
+                showAlert('Erro no upload: ' + error.message, 'error');
+            }
+            
+            hideLoading();
+        }
+        
+        // Função para calcular proposta
+        async function calculateProposal() {
+            const clientData = getClientData();
+            const systemsData = getSystemsData();
+            const parameters = getParameters();
+            
+            if (!clientData.name) {
+                showAlert('Nome do cliente é obrigatório!', 'error');
+                return;
+            }
+            
+            if (systemsData.length === 0) {
+                showAlert('Adicione pelo menos um kit!', 'error');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/calculate-proposal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        client_data: clientData,
+                        systems_data: systemsData,
+                        parameters: parameters
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    appState.proposals = result.proposals;
+                    appState.clientData = clientData;
+                    
+                    showAlert('Proposta calculada com sucesso!', 'success');
+                    showProposalControls();
+                    showTab('proposal');
+                } else {
+                    showAlert('Erro no cálculo: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('Erro na requisição: ' + error.message, 'error');
+            }
+            
+            hideLoading();
+        }
+        
+        // Função para gerar orçamento rápido
+        async function generateQuickQuote() {
+            const monthlyConsumption = document.getElementById('monthly-consumption').value;
+            const billValue = document.getElementById('bill-value').value;
+            const hsp = document.getElementById('location-hsp').value;
+            const simultaneity = document.getElementById('quick-simultaneity').value;
+            
+            if (!monthlyConsumption && !billValue) {
+                showAlert('Informe o consumo mensal ou valor da conta!', 'error');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/quick-quote', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        monthly_consumption_kwh: monthlyConsumption ? parseFloat(monthlyConsumption) : null,
+                        bill_value: billValue ? parseFloat(billValue) : null,
+                        hsp: parseFloat(hsp),
+                        simultaneity_factor: parseFloat(simultaneity)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    appState.quickQuoteResult = result.proposal;
+                    appState.proposals = [result.proposal];
+                    appState.clientData = getClientData();
+                    
+                    showAlert('Orçamento rápido gerado com sucesso!', 'success');
+                    showProposalControls();
+                    showTab('proposal');
+                } else {
+                    showAlert('Erro no orçamento rápido: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('Erro na requisição: ' + error.message, 'error');
+            }
+            
+            hideLoading();
+        }
+        
+        // Função para gerar HTML
+        async function generateHTML() {
+            if (appState.proposals.length === 0) {
+                showAlert('Nenhuma proposta calculada!', 'error');
+                return;
+            }
+            
+            const format = document.getElementById('proposal-format').value;
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/generate-html', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        proposals: appState.proposals,
+                        client_data: appState.clientData,
+                        format: format
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('HTML gerado com sucesso!', 'success');
+                    
+                    // Criar link de download
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = result.download_url;
+                    downloadLink.download = result.filename;
+                    downloadLink.textContent = `📥 Baixar ${result.filename}`;
+                    downloadLink.className = 'btn btn-primary';
+                    downloadLink.style.display = 'inline-block';
+                    downloadLink.style.marginTop = '10px';
+                    
+                    const preview = document.getElementById('proposal-preview');
+                    preview.innerHTML = '<h4>Proposta Gerada!</h4>';
+                    preview.appendChild(downloadLink);
+                    preview.style.display = 'block';
+                } else {
+                    showAlert('Erro na geração HTML: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('Erro na requisição: ' + error.message, 'error');
+            }
+            
+            hideLoading();
+        }
+        
+        // Funções auxiliares
+        function getClientData() {
+            return {
+                name: document.getElementById('client-name').value,
+                email: document.getElementById('client-email').value,
+                phone: document.getElementById('client-phone').value,
+                address: document.getElementById('client-address').value
+            };
+        }
+        
+        function getSystemsData() {
+            const systems = [];
+            const kitCards = document.querySelectorAll('.kit-card');
+            
+            kitCards.forEach(card => {
+                const supplier = card.querySelector('.kit-supplier').value;
+                const cost = card.querySelector('.kit-cost').value;
+                const power = card.querySelector('.kit-power').value;
+                const modules = card.querySelector('.kit-modules').value;
+                
+                if (supplier && cost && power && modules) {
+                    systems.push({
+                        name: supplier,
+                        vcusto_raw: parseFloat(cost),
+                        power: parseFloat(power),
+                        modules_count: parseInt(modules),
+                        modules_desc: card.querySelector('.kit-modules-desc').value || `${modules}x Módulos`,
+                        inverter_desc: card.querySelector('.kit-inverter-desc').value || 'Inversor',
+                        inverter_type: card.querySelector('.kit-inverter-type').value,
+                        freight_included: card.querySelector('.kit-freight-included').checked,
+                        freight_value: card.querySelector('.kit-freight-included').checked ? 0 : parseFloat(card.querySelector('.kit-freight-value').value || 0)
+                    });
+                }
+            });
+            
+            return systems;
+        }
+        
+        function getParameters() {
+            return {
+                margin_target: parseFloat(document.getElementById('margin-target').value),
+                hsp: parseFloat(document.getElementById('hsp').value),
+                tariff: parseFloat(document.getElementById('tariff').value),
+                simultaneity_factor: parseFloat(document.getElementById('simultaneity').value),
+                energy_inflation: parseFloat(document.getElementById('inflation').value)
+            };
+        }
+        
+        function showProposalControls() {
+            document.getElementById('proposal-controls').style.display = 'block';
+        }
+        
+        function showLoading() {
+            document.getElementById('loading').classList.add('show');
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('show');
+        }
+        
+        function showAlert(message, type) {
+            const alertsContainer = document.getElementById('alerts');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            alertsContainer.appendChild(alert);
+            
+            // Remover alert após 5 segundos
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adicionar primeiro kit por padrão
+            addKit();
+            
+            // Testar conexão com API
+            fetch('/api/health')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'healthy') {
+                        showAlert('Aplicação carregada com sucesso!', 'success');
+                    }
+                })
+                .catch(error => {
+                    showAlert('Erro de conexão com a API', 'error');
+                });
+        });
+    </script>
+</body>
+</html>
+

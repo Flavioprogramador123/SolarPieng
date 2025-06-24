@@ -1,0 +1,52 @@
+{
+  "company_name": "PIENG Solar",
+  "company_full_name": "PIENG Soluções Energéticas",
+  "logo_symbol": "π",
+  "primary_color": "#3366CC",
+  "secondary_color": "#FF6B35",
+  "gradient": "linear-gradient(135deg, #3366CC 0%, #FF6B35 100%)",
+  "warranty_equipment": "12 anos",
+  "warranty_installation": "12 meses",
+  "contact_phone": "(62) 99167-0536",
+  "contact_email": "contato@pieng.com.br",
+  "website": "www.pieng.com.br"
+}
+{
+  "social_media": {
+    "facebook": "https://www.facebook.com/pieng.solar",
+    "instagram": "https://www.instagram.com/pieng.solar",
+    "linkedin": "https://www.linkedin.com/company/pieng-solar"
+  },
+  "slogan": "Energia Solar para Todos",
+  "mission": "Proporcionar soluções de energia solar acessíveis e sustentáveis.",
+  "vision": "Ser a principal referência em energia solar no Brasil.",
+  "values": [
+    "Sustentabilidade",
+    "Inovação",
+    "Transparência",
+    "Compromisso com o Cliente"
+  ]
+}
+{
+  "legal_info": {
+    "cnpj": "12.345.678/0001-90",
+    "address": "Rua Exemplo, 123, Bairro Solar, Cidade, Estado, 12345-678",
+    "state_registration": "1234567890",
+    "municipal_registration": "0987654321"
+  },
+  "certifications": [
+    {
+      "name": "Certificação ISO 9001",
+      "description": "Sistema de Gestão da Qualidade",
+      "year": 2022
+    },
+    {
+      "name": "Certificação Inmetro",
+      "description": "Equipamentos de Energia Solar Fotovoltaica",
+      "year": 2023
+    }
+  ]
+}
+{
+  "customer_support": {
+    "support_email": "suporte@pieng.com.br

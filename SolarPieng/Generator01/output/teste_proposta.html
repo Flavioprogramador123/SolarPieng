@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - Proposta Solar para João Silva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: ;
+            min-height: 100vh;
+            padding: 10px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .header {
+            background: ;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .logo-circle {
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: ;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .logo-text {
+            text-align: left;
+        }
+        .logo-text h1 {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .logo-text p {
+            font-size: 0.8em;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 1.5em;
+            margin: 5px 0;
+        }
+        .header p {
+            font-size: 0.9em;
+            margin: 0;
+        }
+        .urgency-banner {
+            background: #e74c3c;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .system-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 0.9em;
+        }
+        .system-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .system-card.recommended {
+            border-color: #2ecc71;
+            position: relative;
+        }
+        .recommended-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #2ecc71;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            font-weight: bold;
+            z-index: 1;
+        }
+        .card-header {
+            background: ;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+        .card-title {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .card-power {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .card-body {
+            padding: 12px;
+        }
+        .specs-list {
+            list-style: none;
+            margin: 8px 0;
+            font-size: 0.8em;
+        }
+        .specs-list li {
+            padding: 2px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .price-section {
+            background: #f1f3f4;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 8px 0;
+        }
+        .original-price {
+            font-size: 0.8em;
+            color: #e74c3c;
+            text-decoration: line-through;
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+        .final-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: ;
+            margin: 5px 0;
+        }
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4px;
+            margin: 8px 0;
+        }
+        .payment-option {
+            background: #f8f9fa;
+            padding: 6px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .payment-option.highlight {
+            border-color: #2ecc71;
+            background: #e8f5e8;
+        }
+        .payment-title {
+            font-size: 0.7em;
+            font-weight: bold;
+            margin-bottom: 3px;
+            color: #333;
+        }
+        .payment-value {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: ;
+        }
+        .discount-tag {
+            background: #2ecc71;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.6em;
+            display: inline-block;
+            margin-top: 3px;
+        }
+        .benefits {
+            background: #e8f5e8;
+            padding: 6px;
+            border-radius: 4px;
+            margin: 6px 0;
+            font-size: 0.75em;
+        }
+        .benefits h4 {
+            color: #2ecc71;
+            margin-bottom: 4px;
+            font-size: 0.9em;
+        }
+        .select-button {
+            width: 100%;
+            background: ;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .select-button:hover {
+            transform: scale(1.02);
+        }
+        .cta-section {
+            background: ;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .cta-section h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .cta-button {
+            background: white;
+            color: ;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        .warranty-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .warranty-section h3 {
+            color: ;
+            margin-bottom: 10px;
+        }
+        .warranty-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .warranty-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid ;
+        }
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .warranty-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-circle"></div>
+                <div class="logo-text">
+                    <h1></h1>
+                    <p></p>
+                </div>
+            </div>
+            <h2>🌞 Proposta de Sistema Solar para João Silva</h2>
+            <p>Escolha a Melhor Opção para Seu Imóvel</p>
+        </div>
+        <div class="urgency-banner">
+            ⚡ INVESTIMENTO INTELIGENTE: SEU RETORNO RÁPIDO E CRESCENTE!
+        </div>
+        <div class="main-content">
+            <div class="cards-grid">
+                
+                <div class="system-card ">
+                    
+                    <div class="card-header">
+                        <div class="card-title">Orçamento Rápido - 1.65 kWp</div>
+                        <div class="card-power">1.65 kWp</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="specs-list">
+                            <li>✓ 3x Painel Solar 550Wp Monocristalino</li>
+                            <li>✓ Microinversor 2kW</li>
+                            <li>✓ Solução Otimizada para Retorno Rápido</li>
+                        </ul>
+                        <div class="price-section">
+                            <div class="original-price">INVESTIMENTO: R$ 3590,27</div>
+                            <div class="final-price">R$ 2825,87</div>
+                            <div class="discount-tag">Preço Especial</div>
+                        </div>
+                        <div class="payment-options">
+                            <div class="payment-option highlight">
+                                <div class="payment-title">💰 À VISTA/PIX</div>
+                                <div class="payment-value">R$ 2543,28</div>
+                                <div class="discount-tag">10% OFF</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-title">💳 12x SEM JUROS</div>
+                                <div class="payment-value">R$ 259,04</div>
+                                <div style="font-size: 0.6em; color: #666;">Entrada + 11x</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-title">💳 18x CARTÃO</div>
+                                <div class="payment-value">R$ 181,33</div>
+                                <div style="font-size: 0.6em; color: #666;">Sem entrada</div>
+                            </div>
+                        </div>
+                        <div class="benefits">
+                            <h4>💡 Benefícios:</h4>
+                            <p>• Geração: ~198.0 kWh/mês<br>
+                            • Economia: R$ 141,29/mês<br>
+                            • Payback: 20 meses<br>
+                            • <strong>Margem: -12.2%</strong></p>
+                        </div>
+                        <button class="select-button">
+                            ESCOLHER ESTA OPÇÃO
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="warranty-section">
+                <h3>🛡️ Garantias Incluídas</h3>
+                <div class="warranty-grid">
+                    <div class="warranty-item">
+                        <strong>Equipamentos</strong><br>
+                         pelo fabricante
+                    </div>
+                    <div class="warranty-item">
+                        <strong>Instalação</strong><br>
+                         pela 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h3>🚀 Pronto para Economizar?</h3>
+                <p>Entre em contato conosco e transforme sua conta de luz em investimento!</p>
+                <div class="cta-buttons">
+                    <button class="cta-button">📱 </button>
+                    <button class="cta-button">📧 </button>
+                    <button class="cta-button">🌐 </button>
+                </div>
+                <p style="font-size: 0.8em; margin-top: 10px;">
+                    Proposta válida por 15 dias • Gerada em 19/06/2025
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+        

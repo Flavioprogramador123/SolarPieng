@@ -1,0 +1,123 @@
+{
+  "configuracao_comercial": {
+    "escalonamento_por_potencia": {
+      "descricao": "Adicional por kWp baseado em faixas de potência (economia de escala)",
+      "faixas": [
+        {
+          "nome": "Micro Sistema",
+          "potencia_min_kwp": 0,
+          "potencia_max_kwp": 10,
+          "adicional_padrao_por_kwp": 1200,
+          "adicional_minimo_por_kwp": 1000,
+          "adicional_maximo_por_kwp": 1500,
+          "justificativa": "Custos fixos altos para sistemas pequenos"
+        },
+        {
+          "nome": "Residencial Pequeno",
+          "potencia_min_kwp": 10.01,
+          "potencia_max_kwp": 20,
+          "adicional_padrao_por_kwp": 1000,
+          "adicional_minimo_por_kwp": 800,
+          "adicional_maximo_por_kwp": 1300,
+          "justificativa": "Sistema residencial padrão com boa margem"
+        },
+        {
+          "nome": "Residencial Grande",
+          "potencia_min_kwp": 20.01,
+          "potencia_max_kwp": 50,
+          "adicional_padrao_por_kwp": 800,
+          "adicional_minimo_por_kwp": 650,
+          "adicional_maximo_por_kwp": 1100,
+          "justificativa": "Ganho de escala começa a aparecer"
+        },
+        {
+          "nome": "Comercial Pequeno",
+          "potencia_min_kwp": 50.01,
+          "potencia_max_kwp": 100,
+          "adicional_padrao_por_kwp": 650,
+          "adicional_minimo_por_kwp": 500,
+          "adicional_maximo_por_kwp": 900,
+          "justificativa": "Economia de escala significativa"
+        },
+        {
+          "nome": "Comercial Grande",
+          "potencia_min_kwp": 100.01,
+          "potencia_max_kwp": 200,
+          "adicional_padrao_por_kwp": 500,
+          "adicional_minimo_por_kwp": 400,
+          "adicional_maximo_por_kwp": 700,
+          "justificativa": "Grande escala, margem menor mas volume maior"
+        },
+        {
+          "nome": "Industrial",
+          "potencia_min_kwp": 200.01,
+          "potencia_max_kwp": 999999,
+          "adicional_padrao_por_kwp": 400,
+          "adicional_minimo_por_kwp": 300,
+          "adicional_maximo_por_kwp": 600,
+          "justificativa": "Máxima economia de escala, projeto especial"
+        }
+      ]
+    },
+    "custos_fixos_por_projeto": {
+      "descricao": "Custos que não escalam linearmente com a potência",
+      "projeto_eletrico": {
+        "ate_50kwp": 2500,
+        "acima_50kwp": 3500,
+        "observacao": "Projeto mais complexo para sistemas maiores"
+      },
+      "homologacao": {
+        "ate_100kwp": 1500,
+        "acima_100kwp": 2000,
+        "observacao": "Processo mais demorado para sistemas grandes"
+      },
+      "mobilizacao_fixa": 2000,
+      "seguro": {
+        "percentual_equipamentos": 2.5,
+        "valor_minimo": 1000,
+        "observacao": "Mínimo de R$ 1.000 ou 2,5% dos equipamentos"
+      }
+    },
+    "configuracao_tecnica": {
+      "hsp_anapolis": 5.3,
+      "eficiencia_sistema": 0.75,
+      "tarifa_energia_kwh": 1.44,
+      "inflacao_energetica_anual": 0.048,
+      "degradacao_paineis_anual": 0.006,
+      "payback_target_min": 16,
+      "payback_target_max": 20
+    },
+    "niveis_acesso": {
+      "vendedor": {
+        "descricao": "Vendedor padrão com limites básicos",
+        "desconto_maximo_percent": 15,
+        "valor_maximo_proposta": 300000,
+        "pode_aprovar_desconto": false
+      },
+      "gerente": {
+        "descricao": "Gerente com limites intermediários",
+        "desconto_maximo_percent": 30,
+        "valor_maximo_proposta": 800000,
+        "pode_aprovar_desconto": true
+      },
+      "administrador": {
+        "descricao": "Administrador com controle total",
+        "desconto_maximo_percent": 100,
+        "valor_maximo_proposta": 999999999,
+        "pode_aprovar_desconto": true
+      }
+    },
+    "notificacoes": {
+      "whatsapp_gerente": "5562991670536",
+      "email_gerente": "gerente@pieng.com.br",
+      "enviar_relatorio_diario": true,
+      "enviar_alerta_desconto": true
+    },
+    "historico_alteracoes": {
+      "data_ultima_alteracao": "2025-01-16",
+      "alterado_por": "Sistema",
+      "versao": "4.0",
+      "observacoes": "Implementação inicial da metodologia escalonada"
+    }
+  }
+}
